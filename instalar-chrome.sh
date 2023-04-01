@@ -32,6 +32,3 @@ git clone https://github.com/madMAx43v3r/chia-plotter.git
 cd chia-plotter
 git submodule update --init
 ./make_devel.sh
-
-# Adiciona o chia-plotter como global
-sudo ln -s /path/to/chia-plotter/build/chia_plot /usr/local/bin/chia_plot
