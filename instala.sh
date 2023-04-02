@@ -1,4 +1,5 @@
 #!/bin/bash
 
-# Configura o painel do XFCE
-xfce4-panel --quit && rm -rf ~/.config/xfce4/panel && xfce4-panel
+# Copia os arquivos de configuração do painel do XFCE
+cp -r /etc/skel/.config/xfce4/panel $HOME/.config/xfce4/panel
+cp /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml $HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
