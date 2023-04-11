@@ -9,11 +9,15 @@ sudo apt-get upgrade -y
 # Instala o ambiente gráfico XFCE4
 sudo apt-get install xfce4 -y
 
-# Instala o editor de texto Gedit
 sudo apt-get install gedit -y
 
-# Instala o gerenciador de login LightDM
 sudo apt-get install lightdm -y
+
+sudo apt install vlc -y
+
+sudo apt install qbittorrent -y
+
+sudo -v ; curl https://rclone.org/install.sh | sudo bash
 
 # Faz o download da chave pública do Google e a adiciona ao sistema
 wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
@@ -36,6 +40,19 @@ sudo tee /usr/share/lightdm/lightdm.conf.d/50-xfce-greeter.conf > /dev/null <<EO
 greeter-session=unity-greeter
 user-session=xfce
 EOF
+
+# Install dependencies
+sudo apt install -y libsodium-dev cmake g++ git build-essential
+
+# Checkout the source and install
+git clone https://github.com/madMAx43v3r/chia-plotter.git 
+cd chia-plotter
+git submodule update --init
+./make_devel.sh
+
+# Add program to PATH
+echo 'export PATH="$PATH:'$(pwd)'/build"' >> ~/.bashrc
+source ~/.bashrc
 
 # Reinicia o sistema
 sudo shutdown -r now
