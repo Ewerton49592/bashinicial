@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Verifica se o script está sendo executado com privilégios de root
+if [[ $EUID -ne 0 ]]; then
+   echo "Este script precisa ser executado como root" 
+   exit 1
+fi
+
 # Executa o comando "apt-get update" para atualizar as informações dos pacotes
 sudo apt-get update
 
@@ -30,6 +36,14 @@ sudo apt-get update
 
 # Instala o Google Chrome
 sudo apt-get install -y google-chrome-stable
+
+# Cria a pasta /mnt/ram caso ela ainda não exista
+mkdir -p /mnt/ram
+
+# Adiciona a entrada para a montagem automática do tmpfs no fstab
+echo "tmpfs    /mnt/ram    tmpfs    defaults,size=110G    0    0" >> /etc/fstab
+
+echo "A montagem automática do tmpfs foi configurada com sucesso!"
 
 # Move o arquivo de configuração antigo do unity-greeter para um arquivo de backup
 sudo mv /usr/share/lightdm/lightdm.conf.d/50-unity-greeter.conf /usr/share/lightdm/lightdm.conf.d/50-unity-greeter.conf.old
